@@ -5,7 +5,7 @@ encrypt_password module
 import bcrypt
 
 
-def hash_password(password):
+def hash_password(password: str) -> bytes:
     """Returns a salted, hashed password"""
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
     return hashed_password
