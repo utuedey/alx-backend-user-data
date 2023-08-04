@@ -67,7 +67,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
 
 def main():
     """Retrieve all rows in use table and display them"""
-    
+
     fields = "name,email,phone,ssn,password,ip,last_login,user_agent"
     columns = fields.split(',')
     query = "SELECT {} FROM users;".format(fields)
