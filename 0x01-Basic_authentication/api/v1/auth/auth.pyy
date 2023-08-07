@@ -8,19 +8,19 @@ from typing import List, TypeVar
 
 
 class Auth:
-    """Class that manages API authentication"""
+    """Class that manages the API authentication"""
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """check if path requires authentication"""
-        if path is None and excluded_paths is None:
+        """ Return bool"""
+        if path is None:
             return True
-        if len(excluded_paths) == 0:
+        if path not in excluded_paths:
             return True
-        if path[-1] != "/":
-            path += "/"
+        if len(excluded_paths) == 0 or excluded_paths is None:
+            return True
         if path in excluded_paths:
             return False
-        return True
+
 
     def authorization_header(self, request=None) -> str:
         """Return None"""
