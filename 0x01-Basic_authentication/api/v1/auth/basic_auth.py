@@ -3,6 +3,8 @@
 basic_auth module
 """
 from .auth import Auth
+from models.user import User
+from typing import TypeVar
 import base64
 import binascii
 
@@ -53,3 +55,20 @@ class BasicAuth(Auth):
             password = credentials[index+1:]
 
             return username, password
+
+    def user_object_from_credentials(
+                            self,
+                            user_email: str, user_pwd: str) -> TypeVar('User'):
+        """Get a user using credentials"""
+        if user_email is None or not isinstance(user_email, str):
+            return None
+        if user_pwd is None or not isinstance(user_pwd, str):
+            return None
+        try:
+            users = User.search({"email": user_email})
+        except Exception:
+            return None
+        if len(users) <= 0:
+            return None
+        if users[0].is_valid_password(user_pwd):
+            return users[0]
