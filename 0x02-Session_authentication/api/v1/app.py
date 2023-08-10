@@ -66,7 +66,7 @@ def authenticate_user():
                 abort(401)
             if user is None:
                 abort(403)
-
+            request.current_user = user
 
 if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")
