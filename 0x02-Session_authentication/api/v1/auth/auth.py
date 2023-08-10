@@ -3,6 +3,7 @@
 auth module
 A class that manages API authenticaton
 """
+import os
 from flask import request
 from typing import List, TypeVar
 
