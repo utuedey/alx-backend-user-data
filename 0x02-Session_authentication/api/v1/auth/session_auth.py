@@ -4,6 +4,8 @@ Session Authentication
 """
 import uuid
 from .auth import Auth
+from models.user import User
+from flask import request
 
 
 class SessionAuth(Auth):
