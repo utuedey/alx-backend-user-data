@@ -17,10 +17,9 @@ def login() -> Tuple[str, int]:
       - json rep of a User instance
     """
     email = request.form.get('email')
-    password = request.form.get('password')
-
     if email is None or len(email.strip()) == 0:
         return jsonify({"error": "email missing"}), 400
+    password = request.form.get('password')
     if password is None or len(password.strip()) == 0:
         return jsonify({"error": "password missing"}), 400
     try:
@@ -39,7 +38,7 @@ def login() -> Tuple[str, int]:
 
 
 @app_views.route(
-    'auth_session/logout', methods=['DELETE'], strict_slashes=False)
+    '/auth_session/logout', methods=['DELETE'], strict_slashes=False)
 def logout() -> Tuple[str, int]:
     """DELETE 'api/v1/auth_session/logout'
     Return:
