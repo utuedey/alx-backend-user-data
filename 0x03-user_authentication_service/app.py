@@ -3,15 +3,33 @@
 Basic Flask app
 """
 from flask import Flask, jsonify
+from auth import Auth
 
 app = Flask(__name__)
+AUTH = Auth()
 
 
-@app.route("/", method=["GET"], strict_slashes=False)
+@app.route("/", methods=["GET"], strict_slashes=False)
 def index():
     """index page
     """
     return jsonify({"message": "Bienvenue"})
+
+
+@app.route("/users", methods=["POST"], strict_slashes=False)
+def register_user():
+    """POST /users
+    Return:
+      - The account creation payload
+    """
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    try:
+        AUTH.register_user(email, password)
+        return jsonify({"email": email, "message": "user created"})
+    except ValueError:
+        return jsonify({"message": "email already registered"}), 400
 
 
 if __name__ == "__main__":
