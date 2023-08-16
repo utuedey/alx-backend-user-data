@@ -3,6 +3,7 @@
 Basic Flask app
 """
 from flask import Flask, jsonify
+from flask import request
 from auth import Auth
 
 app = Flask(__name__)
