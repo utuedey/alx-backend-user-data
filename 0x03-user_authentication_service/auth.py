@@ -9,6 +9,7 @@ from db import DB
 from sqlalchemy.orm.exc import NoResultFound
 from typing import Union
 
+
 def _hash_password(password: str) -> bytes:
     """encrypt a password"""
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
@@ -77,3 +78,9 @@ class Auth:
         except NoResultFound:
             return None
         return user
+
+    def destroy_session(self, user_id: int) -> None:
+        """destroy a user's session"""
+        if user_id is None:
+            return None
+        self._db.update_user(user_id, session_id=None)
